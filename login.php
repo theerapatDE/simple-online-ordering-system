@@ -11,7 +11,7 @@
         <div class="container login-container">
             <div class="login-form-1">
                 <h3>Online Material Ordering System</h3>
-                <form action="" method="POST">
+                <form action="login.php" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Username"><br>
                     </div>
