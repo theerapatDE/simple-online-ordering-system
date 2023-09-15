@@ -18,9 +18,9 @@ session_start();
     
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $qurry = "SELECT * FROM customer WHERE username = '$username'";
+    $query = "SELECT * FROM customer WHERE username = '$username';";
 
-    $result = $mysqli->qurry($qurry);
+    $result = $mysqli->query($query);
     $count = $result->num_rows;
 
     if($count != 1){

@@ -11,15 +11,15 @@
         <div class="container login-container">
             <div class="login-form-1">
                 <h3>Online Material Ordering System</h3>
-                <form action="login.php" method="POST">
+                <form action="checkLogin.php" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Username"><br>
+                        <input type="text" name="username" class="form-control" placeholder="Username"><br>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password"><br>
+                        <input type="password"  name="password" class="form-control" placeholder="Password"><br>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btnSubmit" value="Login">
+                        <input type="submit" name="submit" class="btnSubmit" value="login">
                     </div>
                     <div class="form-group">
                         <a href="#" class="SignUp">Sign up</a>
