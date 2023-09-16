@@ -22,31 +22,49 @@ if(isset($_GET['search'])){
 $results_per_page = 30;  
 $page_first_result = ($page_num-1) * $results_per_page; 
 
-if(isset($_POST['quantity'])){
-    $query = "SELECT * FROM material WHERE MaterialID = ".$_GET['code']. ";"; 
-    $result = $mysqli->query($query);
-    $row = mysqli_fetch_array($result);
+if(isset($_GET['action'])){
+    switch($_GET['action']){
+        case "add":
+            if(isset($_POST['quantity']) && $_POST['quantity'] != null){
+                $query = "SELECT * FROM material WHERE MaterialID = ".$_GET['code']. ";"; 
+                $result = $mysqli->query($query);
+                $row = mysqli_fetch_array($result);
 
-    $itemArray = array($row['MaterialID']=>array('name'=>$row['MaterialName'],'code'=>$row['MaterialID'],'quantity'=>$_POST['quantity'],'price'=>$row['Price']));
+                $itemArray = array($row['MaterialID']=>array('name'=>$row['MaterialName'],'code'=>$row['MaterialID'],'quantity'=>$_POST['quantity'],'price'=>$row['Price']));
 
-    if(!empty($_SESSION["cart_item"])) {
-        if(in_array($row['MaterialID'],array_keys($_SESSION["cart_item"]))) {
-            foreach($_SESSION["cart_item"] as $k => $v) {
-                    if($row['MaterialID'] == $k) {
-                        if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-                            $_SESSION["cart_item"][$k]["quantity"] = 0;
+                if(!empty($_SESSION["cart_item"])) {
+                    if(in_array($row['MaterialID'],array_keys($_SESSION["cart_item"]))) {
+                        foreach($_SESSION["cart_item"] as $k => $v) {
+                                if($row['MaterialID'] == $k) {
+                                    if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+                                        $_SESSION["cart_item"][$k]["quantity"] = 0;
+                                    }
+                                    $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                                }
                         }
-                        $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                    } else {
+                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
                     }
+                } else {
+                    $_SESSION["cart_item"] = $itemArray;
+                }
             }
-        } else {
-            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-        }
-    } else {
-        $_SESSION["cart_item"] = $itemArray;
+            break;
+        case "remove":
+            if(!empty($_SESSION["cart_item"])) {
+                foreach($_SESSION["cart_item"] as $k => $v) {
+                    if($_GET["code"] == $k)
+                        unset($_SESSION["cart_item"][$k]);				
+                    if(empty($_SESSION["cart_item"]))
+                        unset($_SESSION["cart_item"]);
+                }
+            }
+            break;
+        case "empty":
+            unset($_SESSION["cart_item"]);
+            break;
     }
 }
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,7 +77,13 @@ if(isset($_POST['quantity'])){
     </head>
     <body>
         <div id="navbar">
-            <a href="cart.php">Cart</a>
+            <a href="cart.php">Cart
+                <?php
+                    if(isset($_SESSION["cart_item"])){
+                        echo "(".count($_SESSION["cart_item"]).")";
+                    }
+                ?>
+            </a>
             <a href="#news"><?=$customer_id?></a>
             <a href="#contact">Logout</a>
         </div>
@@ -134,7 +158,7 @@ if(isset($_POST['quantity'])){
                                     $row = mysqli_fetch_array($result2);
                                     if(isset($row)){
                                         echo "<div class='col-md-3' id='item'>";
-                                        echo $row['MaterialName']."<br>";
+                                        echo "<span style='color:#0062cc; font-weight: 600;'>".$row['MaterialName']."</span><br>";
                                         echo "Price : ".$row['Price']."฿<br>";
                                         echo "<form method='POST' action='index.php?page=$page_num&search=$search&action=add&code=". $row['MaterialID'] ."'><input type='number' name='quantity' min='1' style='width:30%'><input type='submit' class='btnSubmit' value='Add to cart'></form>";
                                         echo "</div>";
@@ -161,7 +185,7 @@ if(isset($_POST['quantity'])){
             var sticky = navbar.offsetTop;
 
             function myFunction() {
-                if (window.pageYOffset >= sticky) {
+                if (window.pageYOffset > sticky) {
                     navbar.classList.add("sticky")
                 } else {
                     navbar.classList.remove("sticky");
@@ -194,5 +218,20 @@ if(isset($_POST['quantity'])){
 			$_SESSION["cart_item"] = $itemArray;
 		}
 	}
-	break;*/
+	break;
+    
+    case "remove":
+	if(!empty($_SESSION["cart_item"])) {
+		foreach($_SESSION["cart_item"] as $k => $v) {
+			if($_GET["code"] == $k)
+				unset($_SESSION["cart_item"][$k]);				
+			if(empty($_SESSION["cart_item"]))
+				unset($_SESSION["cart_item"]);
+		}
+	}
+	break;
+case "empty":
+	unset($_SESSION["cart_item"]);
+        break;
+    */
 ?>
