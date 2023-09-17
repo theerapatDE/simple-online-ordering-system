@@ -3,6 +3,8 @@ session_start();
 
 if($_SESSION['login_session'] == "1z2x3c4v"){
     $customer_id = $_SESSION['customerId'];
+    $fname = $_SESSION['fname'];
+    $lname = $_SESSION['lname'];
 }else{
     header("location: login.php");
 }
@@ -84,7 +86,7 @@ if(isset($_GET['action'])){
                     }
                 ?>
             </a>
-            <a><?=$customer_id?></a>
+            <a><?php echo $fname." ".$lname; ?></a>
             <a href="logout.php">Logout</a>
         </div>
 

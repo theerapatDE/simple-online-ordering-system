@@ -1,7 +1,7 @@
 <?php
 session_start();
     if(!isset($_POST['submit'])){
-        header("location: login.php");
+        header("location: s-login.php");
     }
 
     include("connect_db.php");
@@ -10,7 +10,7 @@ session_start();
         ?>
         <script>
             alert("Connection Failed.");
-            window.location.href = "login.php";
+            window.location.href = "s-login.php";
         </script>
         <?php
         exit();
@@ -18,7 +18,7 @@ session_start();
     
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $query = "SELECT * FROM customer WHERE username = '$username';";
+    $query = "SELECT * FROM staff WHERE username = '$username';";
 
     $result = $mysqli->query($query);
     $count = $result->num_rows;
@@ -27,7 +27,7 @@ session_start();
         ?>
         <script>
             alert("Username or Password are incorrected.");
-            window.location.href = "login.php";
+            window.location.href = "s-login.php";
         </script>
         <?php
         exit();
@@ -46,21 +46,21 @@ session_start();
         ?>
         <script>
             alert("Username or Password are incorrected.");
-            window.location.href = "login.php";
+            window.location.href = "s-login.php";
         </script>
         <?php
         exit();
     }else{
-        $_SESSION['login_session'] = "1z2x3c4v";
-        $_SESSION['customerId'] =  $existinginfo['CustomerID'];
+        $_SESSION['login_session'] = "a1s2d3f4";
+        $_SESSION['staffID'] =  $existinginfo['staffID'];
         $_SESSION['fname'] = $existinginfo['f_name'];
         $_SESSION['lname'] = $existinginfo['l_name'];
-        header("location: index.php");
+        header("location: s-dashboard.php");
         exit();
     }
 
 ?>
 <script>
             alert("Login process failed.");
-            window.location.href = "login.php";
+            window.location.href = "s-login.php";
 </script>
