@@ -19,10 +19,10 @@
                         <input type="password"  name="password" class="form-control" placeholder="Password"><br>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btnSubmit" value="login">
+                        <input type="submit" name="submit" class="btnSubmit" value="login" class="form-control">
                     </div>
                     <div class="form-group">
-                        <a href="#" class="SignUp">Sign up</a>
+                        <a href="signup.php" class="SignUp">Sign up</a>
                     </div>
                 </form>
             </div>         

@@ -84,8 +84,8 @@ if(isset($_GET['action'])){
                     }
                 ?>
             </a>
-            <a href="#news"><?=$customer_id?></a>
-            <a href="#contact">Logout</a>
+            <a><?=$customer_id?></a>
+            <a href="logout.php">Logout</a>
         </div>
 
         <div class="container">
@@ -160,7 +160,7 @@ if(isset($_GET['action'])){
                                         echo "<div class='col-md-3' id='item'>";
                                         echo "<span style='color:#0062cc; font-weight: 600;'>".$row['MaterialName']."</span><br>";
                                         echo "Price : ".$row['Price']."฿<br>";
-                                        echo "<form method='POST' action='index.php?page=$page_num&search=$search&action=add&code=". $row['MaterialID'] ."'><input type='number' name='quantity' min='1' style='width:30%'><input type='submit' class='btnSubmit' value='Add to cart'></form>";
+                                        echo "<form method='POST' action='index.php?page=$page_num&search=$search&action=add&code=". $row['MaterialID'] ."'><input type='number' name='quantity' min='1' style='width:30%' required><input type='submit' class='btnSubmit' value='Add to cart'></form>";
                                         echo "</div>";
                                     }else{
                                         exit();
