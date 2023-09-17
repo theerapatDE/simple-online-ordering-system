@@ -1,4 +1,4 @@
-# Online Material Ordering System - Mod
+# Online Material Ordering System
 This is a Online Material Ordering System model made to answer requirements given to me to text my computer skills
 
 # Installation Process
