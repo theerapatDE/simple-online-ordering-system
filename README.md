@@ -1,5 +1,5 @@
 # Online Material Ordering System
-This is a Online Material Ordering System model made to answer requirements given to me to text my computer skills
+This is a Online Material Ordering System model made to answer requirements given to me to test my computer skills
 
 # Installation Process
 01. Install XAMPP
