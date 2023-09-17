@@ -51,8 +51,8 @@ session_start();
         <?php
         exit();
     }else{
-        $_session['login_session'] = "1z2x3c4v";
-        $_session['customerId'] =  $existinginfo['username'];
+        $_SESSION['login_session'] = "1z2x3c4v";
+        $_SESSION['customerId'] =  $existinginfo['CustomerID'];
         header("location: index.php");
         exit();
     }
